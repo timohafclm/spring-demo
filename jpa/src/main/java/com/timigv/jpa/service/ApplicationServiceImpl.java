@@ -20,4 +20,19 @@ public class ApplicationServiceImpl implements ApplicationService {
             return true;
         }
     }
+
+    @Override
+    public Application getApplication(Long id) {
+        return applicationDao.getApplication(id);
+    }
+
+    @Override
+    public void update(Application application) {
+        applicationDao.update(application);
+    }
+
+    @Override
+    public void delete(Long id) {
+        applicationDao.delete(id);
+    }
 }

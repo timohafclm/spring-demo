@@ -6,4 +6,10 @@ public interface ApplicationDao {
     boolean applicationExist(String name, String owner);
 
     void addApplication(Application application);
+
+    Application getApplication(Long id);
+
+    void update(Application application);
+
+    void delete(Long id);
 }

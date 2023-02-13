@@ -15,8 +15,10 @@ public class ApplicationDaoImpl implements ApplicationDao {
 
     @Override
     public boolean applicationExist(String name, String owner) {
-        var jpql = "FROM Application AS a WHERE a.name = ? AND a.owner = ?";
-        var count = entityManager.createQuery(jpql).setParameter(0, name).setParameter(1, owner)
+        var jpql = "from Application as a where a.name = :name and a.owner = :owner";
+        var count = entityManager.createQuery(jpql)
+                .setParameter("name", name)
+                .setParameter("owner", owner)
                 .getResultList()
                 .size();
         return count > 0;
@@ -25,5 +27,25 @@ public class ApplicationDaoImpl implements ApplicationDao {
     @Override
     public void addApplication(Application application) {
         entityManager.persist(application);
+    }
+
+    @Override
+    public Application getApplication(Long id) {
+        return entityManager.find(Application.class, id);
+    }
+
+    @Override
+    public void update(Application application) {
+        var newApplication = getApplication(application.getId());
+        newApplication.setName(application.getName());
+        newApplication.setDescription(application.getDescription());
+        newApplication.setOwner(application.getOwner());
+        entityManager.flush();
+    }
+
+    @Override
+    public void delete(Long id) {
+        var application = getApplication(id);
+        entityManager.remove(application);
     }
 }
