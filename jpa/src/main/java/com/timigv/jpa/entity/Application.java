@@ -1,25 +1,19 @@
 package com.timigv.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
-@Table(name = "applications")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "application")
+@Data
 public class Application {
 
     @Id
     @GeneratedValue()
-    @Column
+    @Column(name = "application_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "app_name", nullable = false)
     private String name;
 
     @Column(length = 2000)
